@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adauga Masina</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        function validateForm(event) {
+            const anFabricatie = document.getElementById("anFabricatie").value;
+            const kilometraj = document.getElementById("kilometraj").value;
+            const pret = document.getElementById("pret").value;
+            const stare = document.getElementById("stare").value;
+            const idDealer = document.getElementById("idDealer").value;
+            const idModel = document.getElementById("idModel").value;
+
+            const numberRegex = /^[0-9]+$/;
+            const textRegex = /^[a-zA-Z]+$/;
+
+            let errors = [];
+
+            if (!numberRegex.test(anFabricatie)) {
+                errors.push("Anul de fabricatie trebuie să conțină doar cifre.");
+            }
+            if (!numberRegex.test(kilometraj)) {
+                errors.push("Kilometrajul trebuie să conțină doar cifre.");
+            }
+            if (!numberRegex.test(pret)) {
+                errors.push("Prețul trebuie să conțină doar cifre.");
+            }
+            if (!textRegex.test(stare)) {
+                errors.push("Starea trebuie să conțină doar litere.");
+            }
+            if (!numberRegex.test(idDealer)) {
+                errors.push("ID Dealer trebuie să conțină doar cifre.");
+            }
+            if (!numberRegex.test(idModel)) {
+                errors.push("ID Model trebuie să conțină doar cifre.");
+            }
+
+            if (errors.length > 0) {
+                event.preventDefault();
+                const errorDiv = document.getElementById("error-messages");
+                errorDiv.innerHTML = errors.join("<br>");
+                errorDiv.style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1>Adauga O Noua Masina</h1>
+    <form action="/masina/add" method="post" onsubmit="validateForm(event)">
+        <div id="error-messages" style="color: red; display: none; margin-bottom: 15px;"></div>
+
+        <label for="anFabricatie">An Fabricatie:</label>
+        <input type="number" id="anFabricatie" name="anFabricatie" required>
+
+        <label for="kilometraj">Kilometraj:</label>
+        <input type="number" id="kilometraj" name="kilometraj" required>
+
+        <label for="pret">Pret:</label>
+        <input type="text" id="pret" name="pret" required>
+
+        <label for="stare">Stare:</label>
+        <input type="text" id="stare" name="stare" required>
+
+        <label for="idDealer">ID Dealer:</label>
+        <input type="number" id="idDealer" name="idDealer" required>
+
+        <label for="idModel">ID Model:</label>
+        <input type="number" id="idModel" name="idModel" required>
+
+        <button type="submit">Adauga Masina</button>
+    </form>
+    <a href="/showMasini">Inapoi la Masini</a>
+</div>
+</body>
+</html>

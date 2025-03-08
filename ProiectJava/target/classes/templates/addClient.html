@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adauga Client</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        function validateForm(event) {
+            // Preia valorile câmpurilor
+            const nume = document.getElementById("nume").value;
+            const prenume = document.getElementById("prenume").value;
+            const telefon = document.getElementById("telefon").value;
+
+            // Definește expresiile regulate pentru validare
+            const nameRegex = /^[A-Z][a-zA-Z]+$/;
+            const phoneRegex = /^[0-9]{10}$/;
+
+            // Inițializează mesajele de eroare
+            let errors = [];
+
+            // Validare pentru nume
+            if (!nameRegex.test(nume)) {
+                errors.push("Numele introdus nu este corect. Trebuie să conțină doar litere, iar prima literă să fie majusculă.");
+            }
+
+            // Validare pentru prenume
+            if (!nameRegex.test(prenume)) {
+                errors.push("Prenumele introdus nu este corect. Trebuie să conțină doar litere, iar prima literă să fie majusculă.");
+            }
+
+            // Validare pentru telefon
+            if (!phoneRegex.test(telefon)) {
+                errors.push("Numărul de telefon nu este corect. Trebuie să conțină exact 10 cifre.");
+            }
+
+            // Afișează erorile, dacă există
+            if (errors.length > 0) {
+                event.preventDefault(); // Oprește trimiterea formularului
+                const errorDiv = document.getElementById("error-messages");
+                errorDiv.innerHTML = errors.join("<br>");
+                errorDiv.style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1>Adauga Un Nou Client</h1>
+    <form action="/client/add" method="post" onsubmit="validateForm(event)">
+        <div id="error-messages" style="color: red; display: none; margin-bottom: 15px;"></div>
+
+        <label for="nume">Nume:</label>
+        <input type="text" id="nume" name="nume" required>
+
+        <label for="prenume">Prenume:</label>
+        <input type="text" id="prenume" name="prenume" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="telefon">Telefon:</label>
+        <input type="text" id="telefon" name="telefon" required>
+
+        <button type="submit">Adauga Client</button>
+    </form>
+    <a href="/showClienti">Inapoi la Clienti</a>
+</div>
+</body>
+</html>
